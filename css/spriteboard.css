@@ -1,0 +1,141 @@
+@charset 'utf-8';
+
+@font-face {
+	font-family:pressStartK;
+	src:url('/games/fonts/press-start-k.woff') format('woff'), url('/games/fonts/press-start-k.ttf') format('truetype');
+}
+
+body, h1, h2, p {
+	user-select:none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	margin:0;
+	margin:0;
+	border:0;
+	padding:0;
+	font-family:pressStartK;
+	line-height:1.5;
+}
+
+h1 {font-size:18pt;}
+h2 {font-size:14pt;}
+
+.hide {display:none;}
+.dBlock {display:block;}
+.abs {position:absolute;}
+.rel {position:relative;}
+
+.balance {margin-right:auto; margin-left:auto;}
+.m10 {margin:10px;}
+.mb5 {margin-bottom:5px;}
+.mt10 {margin-top:10px;}
+.mb10 {margin-bottom:10px;}
+
+.bdrBlack {border:1px solid #000;}
+.bdrBox {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+}
+
+.p5 {padding:5px;}
+
+.w360 {width:360px;}
+
+.txtC {text-align:center;}
+.txtR {text-align:right;}
+.txtWhite {color:#fff;}
+.txtGray {color:#555;}
+.txtGreen {color:#3f3;}
+.txtBlue {color:#00f;}
+
+#game {
+	width:360px;
+	height:525px;
+}
+
+#stage {
+	width:360px;
+	height:525px;
+	background-color:#97b9e1;
+	overflow:hidden;
+}
+
+#obstacles {
+	width:360px;
+	height:525px;
+}
+
+#ground {
+	top:400px;
+	width:360px;
+	height:125px;
+	background-color:#666;
+}
+
+#player {
+	top:260px;
+	left:130px;
+	width:100px;
+	height:140px;
+	background:url('../img/matt.png') no-repeat;
+}
+
+#board {
+	top:260px;
+	left:130px;
+	width:100px;
+	height:140px;
+	background:url('../img/board.png') no-repeat;
+}
+
+#hud {
+	top:0;
+	left:0;
+	width:360px;
+}
+
+#buttons {
+	top:25px;
+	left:105px;
+}
+
+.button {
+	background:url('../img/btnBG.png') no-repeat;
+	width:300px;
+	height:50px;
+	line-height:50px;
+	cursor:pointer;
+}
+
+.pavement {
+	background:url('../img/pavement.png') no-repeat;
+	top:0;
+	left:0;
+	width:360px;
+	height:125px;
+}
+
+.block {
+	top:380px;
+	left:360px;
+	width:20px;
+	height:20px;
+	background-color:#00c;
+}
+
+.ledge {
+	top:360px;
+	left:360px;
+	width:300px;
+	height:40px;
+	background-color:#999;
+}
+
+#debug {
+	width:360px;
+	min-height:50px;
+	background-color:#333333;
+	color:#0f0 !important;
+	font:10pt Courier New;
+}

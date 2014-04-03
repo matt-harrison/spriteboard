@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>spriteboard JS</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/vars.js"></script>
+		<script type="text/javascript" src="js/spriteboard.js"></script>
+		<link type="text/css" href="css/spriteboard.css" rel="stylesheet"/>
+		<meta name="viewport" content="width=380, scale=1, user-scalable=0"/>
+	</head>
+	<body class="m10">
+		<div id="game" class="balance mb10 bdrBlack rel">
+			<div id="stage" class="abs">
+				<div id="hud" class="abs bdrBox p5 w360"></div>
+				<div id="ground" class="abs">
+					<div id="pavement1" class="pavement abs"></div>
+					<div id="pavement2" class="pavement abs"></div>
+				</div>
+				<div id="obstacles" class="abs">
+					<div id="block1" class="block abs"></div>
+					<div id="ledge1" class="ledge abs"></div>
+				</div>
+				<div id="board" class="abs"></div>
+				<div id="player" class="abs"></div>
+			</div>
+			<div id="title" class="abs bdrBox p5 w360 txtC">
+				<h1 class="mt10">SPRITEBOARD</h1>
+				<h2 class="mb10">by matt!</h2>
+				<div id="buttons" class="balance">
+					<div type="button" id="btnPlay" class="balance mb10 txtC button">Play</div>
+					<div type="button" id="btnStance" class="balance mb10 txtC button">Change Stance</div>
+					<div type="button" id="btnTutorial" class="balance mb10 txtC button">Tutorial</div>
+				</div>
+			</div>
+		</div>
+		<div id="debug" class="balance bdrBox bdrBlack p5 hide"></div>
+	</body>
+</html>
