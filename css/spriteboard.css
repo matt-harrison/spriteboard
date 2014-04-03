@@ -76,7 +76,18 @@ h2 {font-size:14pt;}
 	left:130px;
 	width:100px;
 	height:140px;
+}
+
+.matt {
+	width:100px;
+	height:140px;
 	background:url('../img/matt.png') no-repeat;
+}
+
+.laura {
+	width:100px;
+	height:140px;
+	background:url('../img/laura.png') no-repeat;
 }
 
 #board {
@@ -93,7 +104,7 @@ h2 {font-size:14pt;}
 	width:360px;
 }
 
-#buttons {
+.buttons {
 	top:25px;
 	left:105px;
 }

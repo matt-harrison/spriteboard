@@ -1,4 +1,4 @@
-$(function(){	
+$(function(){
 	//prevent mobile windows from dragging and scrolling
 	document.body.addEventListener('touchstart', function(e){
 		e.preventDefault();
@@ -32,7 +32,8 @@ $(function(){
 	//DECLARE GAME OBJECTS
 	player = {
 		id:'player', 
-		selector:$('#player'), 
+		selector:$('#player'),
+		character:'matt', 
 		width:100, 
 		height:140, 
 		x:130, 
@@ -48,6 +49,9 @@ $(function(){
 		trick:'', 
 		combo:false, 
 		snapOut:false, 
+		init:function(){
+			this.selector.attr('class', this.character + ' abs').css('left', this.x + 'px');
+		}, 
 		update:function(){
 			if((player.status == 'ride' || player.status == 'dragging') && holding){
 				if(timer - holdStart > 4){
@@ -268,7 +272,7 @@ $(function(){
 			this.selector2.attr('class', this.level + ' abs').css('left', (this.x + this.width) + 'px');
 		},
 		update:function(){
-			if(this.x + this.width - speed == 0){
+			if(this.x + this.width - speed <= 0){
 				this.x = 0;
 			} else {
 				this.x -= speed;
@@ -280,6 +284,7 @@ $(function(){
 		}
 	}
 	
+	//INTERFACE
 	//MAIN MENU	
 	$('#btnPlay').bind('mouseup touchend', function(){
 		gameOver = false;
@@ -303,6 +308,10 @@ $(function(){
 	});
 	
 	//OPTIONS
+	$('#btnCharacterSelect').bind('mouseup touchend', function(){
+		$('#options').addClass('hide');
+		$('#characterSelect').removeClass('hide');
+	});
 	$('#btnLevelSelect').bind('mouseup touchend', function(){
 		$('#options').addClass('hide');
 		$('#levelSelect').removeClass('hide');
@@ -323,6 +332,20 @@ $(function(){
 		$('#title').removeClass('hide');
 	});
 	
+	//CHARACTER SELECT
+	$('#btnCharacterMatt').bind('mouseup touchend', function(){
+		player.character = 'matt';
+		player.init();
+	});
+	$('#btnCharacterLaura').bind('mouseup touchend', function(){
+		player.character = 'laura';
+		player.init();
+	});
+	$('#characterSelect #btnBackToOptions').bind('mouseup touchend', function(){
+		$('#characterSelect').addClass('hide');
+		$('#options').removeClass('hide');
+	});
+	
 	//LEVEL SELECT
 	$('#btnLevelPavement').bind('mouseup touchend', function(){
 		bg.level = 'pavement';
@@ -332,7 +355,7 @@ $(function(){
 		bg.level = 'street';
 		bg.init();
 	});
-	$('#btnBackToOptions').bind('mouseup touchend', function(){
+	$('#levelSelect #btnBackToOptions').bind('mouseup touchend', function(){
 		$('#levelSelect').addClass('hide');
 		$('#options').removeClass('hide');
 	});
