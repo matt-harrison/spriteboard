@@ -121,6 +121,7 @@ $(function(){
 								bail();
 							} else {
 								this.status = 'land';
+								this.trick = 0;
 								setFrame(this);
 							}
 						}
@@ -349,10 +350,14 @@ $(function(){
 	//LEVEL SELECT
 	$('#btnLevelPavement').bind('mouseup touchend', function(){
 		bg.level = 'pavement';
+		bg.width = 360;
+		bg.x = 0;
 		bg.init();
 	});
 	$('#btnLevelStreet').bind('mouseup touchend', function(){
 		bg.level = 'street';
+		bg.width = 1800;
+		bg.x = 0;
 		bg.init();
 	});
 	$('#levelSelect #btnBackToOptions').bind('mouseup touchend', function(){
@@ -756,22 +761,17 @@ $(function(){
 				$('#hud').html('<span class="txtWhite">Powerslide</span>');
 			} else if(player.status == 'ollie' || player.status == 'trick'){
 				var trickName = tricks[obj.trick];
+				if(player.combo || player.snapOut){
+					$('#hud').append('<br/> <span class="txtGray">+</span> ');
+				}
 				if(player.combo && !player.snapOut){
-					$('#hud').append('<br/> <span class="txtGray">+</span> <span class="txtGreen">Late</span> ');
+					$('#hud').append('<span class="txtGreen">Late</span> ');
 				}
 				if(player.switchStance){
 					$('#hud').append('<span class="txtGreen">Switch</span> ');
 				}
 				if(player.spin == ''){
-					if(player.snapOut){
-						if(trickName == 'Ollie'){
-							$('#hud').append('<br/> <span class="txtGray">+</span> <span class="txtGreen">Snap</span>');
-						} else {
-							$('#hud').append('<br/> <span class="txtGray">+</span> ' + trickName);
-						}
-					} else {
-						$('#hud').append(trickName);
-					}
+					$('#hud').append(trickName);
 				} else if(player.spin == 'fs'){
 					if(tricks[board.trick] == 'Hardflip'){
 						$('#hud').append('Frontside Flip');
@@ -780,7 +780,7 @@ $(function(){
 					} else if(tricks[board.trick] == 'Frontside Shuvit' || tricks[row] == 'Frontside 180'){
 						$('#hud').append('Frontside 180');
 					} else {
-						$('#hud').append(tricks[board.trick] + '<br/> <span class="txtGray">+</span> <span class="txtGreen">Frontside Body Varial</span>');
+						$('#hud').append(tricks[board.trick] + '<span class="txtGreen">Frontside Body Varial</span>');
 					}
 				} else if(player.spin == 'bs'){
 					if(tricks[board.trick] == 'Varialflip'){
@@ -790,19 +790,15 @@ $(function(){
 					} else if(tricks[board.trick] == 'Backside Shuvit' || tricks[row] == 'Backside 180'){
 						$('#hud').append('Backside 180');
 					} else {
-						$('#hud').append(tricks[board.trick] + '<br/> <span class="txtGray">+</span> <span class="txtGreen">Backside Body Varial</span>');
+						$('#hud').append(tricks[board.trick] + '<span class="txtGreen">Backside Body Varial</span>');
 					}
-				}
-				if(player.snapOut){
-					$('#hud').append(' <span class="txtGreen">Out</span> ');
 				}
 			} else if(player.status == 'grind'){
 				var grindName = grinds[obj.trick];
-				if(player.switchStance){
-					$('#hud').append('<br/> <span class="txtGray">+</span> <span class="txtGreen">Switch</span> ' + grindName);
-				} else {
-					$('#hud').append('<br/> <span class="txtGray">+</span> ' + grindName);
+				if(player.combo || player.snapOut){
+					$('#hud').append('<br/> <span class="txtGray">+</span> ');
 				}
+				$('#hud').append(grindName);
 			}
 		} else if(mode == 'tutorial'){
 			if(player.status == tutorial[tutorialStep][3] && advance){
