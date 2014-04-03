@@ -257,53 +257,55 @@ $(function(){
 	}
 	obstacles.push(ledge1);
 	
-	pavement1 = {
-		id:'pavement1',
-		selector:$('#pavement1'),
+	bg = {
+		selector1:$('#bg1'),
+		selector2:$('#bg2'),
+		level:'pavement', 
 		x:0,
-		width:350,
+		width:360,
 		init:function(){
-			this.selector.css('left', this.x + 'px');
+			this.selector1.attr('class', this.level + ' abs').css('left', this.x + 'px');
+			this.selector2.attr('class', this.level + ' abs').css('left', (this.x + this.width) + 'px');
 		},
 		update:function(){
-			if(this.x + this.width > 0){
-				this.x -= speed;
+			if(this.x + this.width - speed == 0){
+				this.x = 0;
 			} else {
-				this.x = pavement2.x + pavement2.width - speed;
+				this.x -= speed;
 			}
 		},
 		draw:function(){
-			this.selector.css('left', this.x + 'px');
+			this.selector1.css('left', this.x + 'px');
+			this.selector2.css('left', (this.x + this.width) + 'px');
 		}
 	}
 	
-	pavement2 = {
-		id:'pavement2',
-		selector:$('#pavement2'),
-		x:360,
-		width:350,
-		init:function(){
-			this.selector.css('left', this.x + 'px');
-		},
-		update:function(){
-			if(this.x + this.width > 0){
-				this.x -= speed;
-			} else {
-				this.x = pavement1.x + pavement1.width - speed;
-			}
-		},
-		draw:function(){
-			this.selector.css('left', this.x + 'px');
-		}
-	}
-	
-	//INTERFACE	
+	//MAIN MENU	
 	$('#btnPlay').bind('mouseup touchend', function(){
 		gameOver = false;
 		mode = 'game';
 		resetPlayer();
-		$('#title').hide();
-		$('#hud').addClass('txtWhite').show();
+		$('#title').addClass('hide');
+		$('#hud').addClass('txtWhite').removeClass('hide');
+	});
+	$('#btnOptions').bind('mouseup touchend', function(){
+		$('#title').addClass('hide');
+		$('#options').removeClass('hide');
+	});
+	$('#btnTutorial').bind('mouseup touchend', function(){
+		gameOver = false;
+		mode = 'tutorial';
+		tutorialStep = 0;
+		player.stance = 'regular';
+		player.spriteX = 0;
+		$('#title').addClass('hide');
+		$('#hud').removeClass('txtWhite').removeClass('hide').html(tutorial[tutorialStep][0]);
+	});
+	
+	//OPTIONS
+	$('#btnLevelSelect').bind('mouseup touchend', function(){
+		$('#options').addClass('hide');
+		$('#levelSelect').removeClass('hide');
 	});
 	$('#btnStance').bind('mouseup touchend', function(){
 		gameOver = false;
@@ -316,14 +318,23 @@ $(function(){
 		}
 		player.draw();
 	});
-	$('#btnTutorial').bind('mouseup touchend', function(){
-		gameOver = false;
-		mode = 'tutorial';
-		tutorialStep = 0;
-		player.stance = 'regular';
-		player.spriteX = 0;
-		$('#title').hide();
-		$('#hud').removeClass('txtWhite').show().html(tutorial[tutorialStep][0]);
+	$('#btnMainMenu').bind('mouseup touchend', function(){
+		$('#options').addClass('hide');
+		$('#title').removeClass('hide');
+	});
+	
+	//LEVEL SELECT
+	$('#btnLevelPavement').bind('mouseup touchend', function(){
+		bg.level = 'pavement';
+		bg.init();
+	});
+	$('#btnLevelStreet').bind('mouseup touchend', function(){
+		bg.level = 'street';
+		bg.init();
+	});
+	$('#btnBackToOptions').bind('mouseup touchend', function(){
+		$('#levelSelect').addClass('hide');
+		$('#options').removeClass('hide');
 	});
 	
 	//KEYBOARD LISTENERS
@@ -338,7 +349,7 @@ $(function(){
 			$('#debug').html('framerate: ' + frameRate);
 		}
 		if(event.which == 81){//Q
-			resetGame();
+			quitGame();
 		}
 	});
 	
@@ -363,7 +374,7 @@ $(function(){
 		holding = true;
 		holdStart = timer;
 		if(e.originalEvent.touches.length > 1){
-			resetGame();
+			quitGame();
 		} else {
 			startX = e.originalEvent.touches[0].pageX;
 			startY = e.originalEvent.touches[0].pageY;
@@ -390,10 +401,8 @@ $(function(){
 					obstacles[i].update();
 					obstacles[i].draw();
 				}
-				pavement1.update();
-				pavement2.update();
-				pavement1.draw();
-				pavement2.draw();
+				bg.update();
+				bg.draw();
 			}
 			var lastObs = obstacles[obstacles.length-1];
 			if(lastObs.x + lastObs.width < 0){
@@ -630,7 +639,7 @@ $(function(){
 		}
 	}
 	
-	function resetGame(){
+	function quitGame(){
 		gameOver = true;
 		mode = 'menu';
 		resetPlayer();
@@ -638,8 +647,8 @@ $(function(){
 		board.update();
 		player.draw();
 		board.draw();
-		$('#hud').hide().html('');
-		$('#title').show();
+		$('#hud').addClass('hide').html('');
+		$('#title').removeClass('hide');
 	}
 	
 	function resetPlayer(){
@@ -663,8 +672,7 @@ $(function(){
 		for(var i=0; i<obstacles.length; i++){
 			obstacles[i].init();
 		}
-		pavement1.init();
-		pavement2.init();
+		bg.init();
 		$('#hud').html('');
 	}
 	
@@ -884,7 +892,7 @@ $(function(){
 			if(tutorial[tutorialStep][2] == 'TAP'){
 				advanceTutorial();
 			} else if(tutorial[tutorialStep][2] == 'END'){
-				resetGame();
+				quitGame();
 			} else {
 				$('#hud').html('');
 				perform(dir);

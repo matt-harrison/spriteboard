@@ -12,15 +12,15 @@
 	<body class="m10">
 		<div id="game" class="balance mb10 bdrBlack rel">
 			<div id="stage" class="abs">
-				<div id="hud" class="abs bdrBox p5 w360"></div>
-				<div id="ground" class="abs">
-					<div id="pavement1" class="pavement abs"></div>
-					<div id="pavement2" class="pavement abs"></div>
+				<div id="bg" class="abs">
+					<div id="bg1" class="pavement abs"></div>
+					<div id="bg2" class="pavement abs"></div>
 				</div>
 				<div id="obstacles" class="abs">
 					<div id="block1" class="block abs"></div>
 					<div id="ledge1" class="ledge abs"></div>
 				</div>
+				<div id="hud" class="abs bdrBox p5 w360"></div>
 				<div id="board" class="abs"></div>
 				<div id="player" class="abs"></div>
 			</div>
@@ -29,8 +29,24 @@
 				<h2 class="mb10">by matt!</h2>
 				<div id="buttons" class="balance">
 					<div type="button" id="btnPlay" class="balance mb10 txtC button">Play</div>
-					<div type="button" id="btnStance" class="balance mb10 txtC button">Change Stance</div>
+					<div type="button" id="btnOptions" class="balance mb10 txtC button">Options</div>
 					<div type="button" id="btnTutorial" class="balance mb10 txtC button">Tutorial</div>
+				</div>
+			</div>
+			<div id="options" class="abs bdrBox p5 w360 txtC hide">
+				<h1 class="mt10">OPTIONS</h1>
+				<div id="buttons" class="balance">
+					<div type="button" id="btnLevelSelect" class="balance mb10 txtC button">Level Select</div>
+					<div type="button" id="btnStance" class="balance mb10 txtC button">Change Stance</div>
+					<div type="button" id="btnMainMenu" class="balance mb10 txtC button">Main Menu</div>
+				</div>
+			</div>
+			<div id="levelSelect" class="abs bdrBox p5 w360 txtC hide">
+				<h1 class="mt10">LEVEL SELECT</h1>
+				<div id="buttons" class="balance">
+					<div type="button" id="btnLevelPavement" class="balance mb10 txtC button">Pavement</div>
+					<div type="button" id="btnLevelStreet" class="balance mb10 txtC button">Street</div>
+					<div type="button" id="btnBackToOptions" class="balance mb10 txtC button">Back to Options</div>
 				</div>
 			</div>
 		</div>

@@ -34,6 +34,10 @@ grinds.push('Lipslide');
 grinds.push('Bluntslide');
 grinds.push('Noseblunt');
 
+levels = new Array();
+levels.push('pavement', new Array('block', 'ledge'));
+levels.push('street', new Array('ledge', 'ledge'));
+
 obstacles = new Array();
 
 advance = false;

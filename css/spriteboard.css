@@ -66,11 +66,9 @@ h2 {font-size:14pt;}
 	height:525px;
 }
 
-#ground {
-	top:400px;
+#bg {
 	width:360px;
-	height:125px;
-	background-color:#666;
+	height:525px;
 }
 
 #player {
@@ -109,11 +107,15 @@ h2 {font-size:14pt;}
 }
 
 .pavement {
-	background:url('../img/pavement.png') no-repeat;
-	top:0;
-	left:0;
+	background:url('../img/levels/pavement.png') no-repeat;
 	width:360px;
-	height:125px;
+	height:530px;
+}
+
+.street {
+	background:url('../img/levels/street.png') no-repeat;
+	width:360px;
+	height:530px;
 }
 
 .block {
