@@ -85,7 +85,7 @@ tutorial.push(['A <span class="txtWhite">Frontside Flip</span> combines a <span 
 tutorial.push(['After winding up, swipe to the <span class="txtBlue">BOTTOM LEFT</span> to <span class="txtWhite">Frontside Flip</span>.', 'SW', 'Hardflip', 'land']);
 tutorial.push(['Swipe <span class="txtBlue">RIGHT</span> again to <span class="txtWhite">Powerslide</span> back.', 'E', 'Powerslide', 'ride']);
 tutorial.push(['A <span class="txtWhite">Backside Flip</span> combines a <span class="txtWhite">Backside 180</span> and a <span class="txtWhite">Varialflip</span>.<br><br/>Swipe to the <span class="txtBlue">BOTTOM RIGHT</span> to wind up for a <span class="txtWhite">Backside 180</span>.', 'SE', 'Backside 180', 'crouch']);
-tutorial.push(['After winding up, swipe to the <span class="txtBlue">BOTTOM RIGHT</span> to <span class="txtWhite">Backside Flip</span>.', 'SE', 'Varialflip', 'land']);
+tutorial.push(['After winding up, swipe to the <span class="txtBlue">TOP LEFT</span> to <span class="txtWhite">Backside Flip</span>.', 'NW', 'Varialflip', 'land']);
 tutorial.push(['Swipe <span class="txtBlue">RIGHT</span> again to <span class="txtWhite">Powerslide</span> back.', 'E', 'Powerslide', 'ride']);
 tutorial.push(['A <span class="txtWhite">Frontside Heelflip</span> combines a <span class="txtWhite">Frontside 180</span> and a <span class="txtWhite">Varial Heelflip</span>.<br><br/>Swipe to the <span class="txtBlue">BOTTOM LEFT</span> to wind up for a <span class="txtWhite">Frontside 180</span>.', 'SW', 'Frontside 180', 'crouch']);
 tutorial.push(['After winding up, swipe to the <span class="txtBlue">TOP RIGHT</span> to <span class="txtWhite">Frontside Heelflip</span>.', 'NE', 'Varial Heelflip', 'land']);

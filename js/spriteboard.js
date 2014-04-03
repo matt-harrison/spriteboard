@@ -1,8 +1,4 @@
-$(function(){
-	//initialize stage size and shape
-	gameW = 360;
-	gameH = 525;
-	
+$(function(){	
 	//prevent mobile windows from dragging and scrolling
 	document.body.addEventListener('touchstart', function(e){
 		e.preventDefault();
@@ -54,13 +50,13 @@ $(function(){
 		snapOut:false, 
 		update:function(){
 			if((player.status == 'ride' || player.status == 'dragging') && holding){
-				if(timer - holdStart > 8){
+				if(timer - holdStart > 4){
 					if(this.status != 'dragging'){
 						this.status = 'dragging';
 						setFrame(this);
 					}
 					if(speed > 0){
-						if((timer - holdStart) % 8 == 0){
+						if((timer - holdStart) % 4 == 0){
 							speed -= speedIncrement;
 						}
 					} 
@@ -455,7 +451,7 @@ $(function(){
 		return inPosition;
 	}
 	
-	function perform(dir){
+	function perform(dir, longSwipe){
 		if(gameOver){
 			if(dir == ''){//tap to reset
 				gameOver = false;
@@ -497,7 +493,11 @@ $(function(){
 					if(dir == 'N'){
 						player.trick = 7;
 					} else if(dir == 'NE'){
-						player.trick = 9;
+						if(longSwipe){
+							player.trick = 13;
+						} else {
+							player.trick = 9;
+						}
 					} else if(dir == 'E'){
 						player.trick = 5;
 					} else if(dir == 'SE'){
@@ -509,11 +509,11 @@ $(function(){
 					} else if(dir == 'W'){
 						player.trick = 4;
 					} else if(dir == 'NW'){
-						player.trick = 8;
-					} else if(dir == 'bigNE'){
-						player.trick = 12;
-					} else if(dir == 'bigNW'){
-						player.trick = 13;
+						if(longSwipe){
+							player.trick = 12;
+						} else {
+							player.trick = 8;
+						}
 					} else {//tap only
 						player.status = 'ollie';
 						player.trick = 1;
@@ -560,7 +560,11 @@ $(function(){
 					if(dir == 'N'){
 						player.trick = 7;
 					} else if(dir == 'NE'){
-						player.trick = 9;
+						if(longSwipe){
+							player.trick = 13;
+						} else {
+							player.trick = 9;
+						}
 					} else if(dir == 'E'){
 						player.trick = 5;
 					} else if(dir == 'SE'){
@@ -572,17 +576,22 @@ $(function(){
 					} else if(dir == 'W'){
 						player.trick = 4;
 					} else if(dir == 'NW'){
-						player.trick = 8;
-					} else if(dir == 'bigNE'){
-						player.trick = 12;
-					} else if(dir == 'bigNW'){
-						player.trick = 13;
+						if(longSwipe){
+							player.trick = 12;
+						} else {
+							player.trick = 8;
+						}
 					}
 				} else {//prepare for grind
 					player.status = 'pose';
 					if(dir == 'N'){
-						player.trick = 7;
-						grindOffset = pixelScale * 2.5;
+						if(longSwipe){
+							player.trick = 12;
+							grindOffset = pixelScale;
+						} else {
+							player.trick = 7;
+							grindOffset = pixelScale * 2.5;
+						}
 					} else if(dir == 'NE'){
 						player.trick = 5;
 						grindOffset = pixelScale;
@@ -593,8 +602,13 @@ $(function(){
 						player.trick = 4;
 						grindOffset = pixelScale * 2;
 					} else if(dir == 'S'){
-						player.trick = 8;
-						grindOffset = pixelScale * 2.5;
+						if(longSwipe){
+							player.trick = 11;
+							grindOffset = pixelScale;
+						} else {
+							player.trick = 8;
+							grindOffset = pixelScale * 2.5;
+						}
 					} else if(dir == 'SW'){
 						player.trick = 10;
 						grindOffset = pixelScale;
@@ -603,12 +617,6 @@ $(function(){
 						grindOffset = pixelScale * 0.5;
 					} else if(dir == 'NW'){
 						player.trick = 9;
-						grindOffset = pixelScale;
-					} else if(dir == 'bigN'){
-						player.trick = 12;
-						grindOffset = pixelScale;
-					} else if(dir == 'bigS'){
-						player.trick = 11;
 						grindOffset = pixelScale;
 					} else if(dir == ''){
 						player.trick = 1;
@@ -772,18 +780,28 @@ $(function(){
 		}
 	}
 	
-	function swipeEnd(endX, endY){		
+	function swipeEnd(endX, endY){	
+		var shortSwipe = 30;
+		var longSwipe = 200;
+		
+		var isLongSwipe = false;
 		var swipe = '';
 		var swipeHoriz = '';
 		var swipeVert = '';
-		if(startX - endX >= 30){
+		
+		var leftLength = startX - endX;
+		var rightLength = endX - startX;
+		var upLength = startY - endY;
+		var downLength = endY - startY;
+		
+		if(leftLength >= shortSwipe){
 			swipeHoriz = 'left';
-		} else if(endX - startX >= 30){
+		} else if(rightLength >= shortSwipe){
 			swipeHoriz = 'right';
 		}
-		if(startY - endY >= 30){
+		if(upLength >= shortSwipe){
 			swipeVert = 'up';
-		} else if(endY - startY >= 30){
+		} else if(downLength >= shortSwipe){
 			swipeVert = 'down';
 		}
 		if(swipeHoriz == 'left'){
@@ -809,25 +827,45 @@ $(function(){
 				swipe = 'S';
 			}
 		}
-		if(startY - endY > 200){
-			if(endX - startX > 200){
-				swipe = 'bigNW';
-			} else if(startX - endX > 200){
-				swipe = 'bigNW';
-			} else {
-				swipe = 'bigN';
+		
+		if(swipe == 'N'){
+			if(upLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'NE'){
+			if(upLength > longSwipe && rightLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'E'){
+			if(rightLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'SE'){
+			if(downLength > longSwipe && rightLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'S'){
+			if(downLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'SW'){
+			if(downLength > longSwipe && leftLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'W'){
+			if(leftLength > longSwipe){
+				isLongSwipe = true;
+			}
+		} else if(swipe == 'NW'){
+			if(upLength > longSwipe && leftLength > longSwipe){
+				isLongSwipe = true;
 			}
 		}
-		if(endY - startY > 200){
-			swipe = 'bigS';
-		}
-		if(startX - endX > 200 && startY - endY > 200){
-			swipe = 'bigNE';
-		}
+		
 		if(mode == 'game'){
-			perform(swipe);
+			perform(swipe, isLongSwipe);
 		} else if(mode == 'tutorial'){
-			performTutorial(swipe);
+			performTutorial(swipe, isLongSwipe);
 		}
 	}
 	
@@ -839,7 +877,7 @@ $(function(){
 		}
 	}
 	
-	function performTutorial(dir){
+	function performTutorial(dir, length){
 		//check if input matches next tutorial requirement
 		if(dir == tutorial[tutorialStep][1]){
 			advance = true;
