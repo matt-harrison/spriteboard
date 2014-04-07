@@ -11,20 +11,21 @@
 	</head>
 	<body class="m10">
 		<div id="game" class="balance mb10 bdrBlack rel">
-			<div id="stage" class="abs">
+			<div id="stage" class="abs hide">
 				<div id="bg" class="abs">
 					<div id="bg1" class="pavement abs"></div>
 					<div id="bg2" class="pavement abs"></div>
 				</div>
-				<div id="obstacles" class="abs">
-					<div id="block1" class="block abs"></div>
-					<div id="ledge1" class="ledge abs"></div>
-				</div>
+				<div id="obstacles" class="abs"></div>
 				<div id="hud" class="abs bdrBox p5 w360"></div>
 				<div id="board" class="abs"></div>
 				<div id="player" class="matt abs"></div>
 			</div>
-			<div id="title" class="abs bdrBox p5 w360 txtC">
+			<div id="loading" class="abs bdrBox p5 w360 txtC">
+				<h1>LOADING...</h1>
+				<h2 id="percentage">0%</h2>
+			</div>
+			<div id="title" class="abs bdrBox p5 w360 txtC hide">
 				<h1 class="mt10">SPRITEBOARD</h1>
 				<h2 class="mb10">by matt!</h2>
 				<div class="balance buttons">

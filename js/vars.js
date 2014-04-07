@@ -1,3 +1,22 @@
+obstacles = new Array();
+
+sprites = new Array();
+sprites.push('img/characters/matt.png');
+sprites.push('img/characters/laura.png');
+
+sprites.push('img/btnBG.png');
+sprites.push('img/board.png');
+
+sprites.push('img/levels/pavement.png');
+sprites.push('img/levels/street.png');
+
+sprites.push('img/obstacles/barrier.png');
+sprites.push('img/obstacles/box.png');
+sprites.push('img/obstacles/cone.png');
+sprites.push('img/obstacles/guard-rail.png');
+sprites.push('img/obstacles/rail.png');
+sprites.push('img/obstacles/ramp.png');
+
 tricks = new Array();
 tricks.push('none');
 tricks.push('Ollie');
@@ -34,11 +53,19 @@ grinds.push('Lipslide');
 grinds.push('Bluntslide');
 grinds.push('Noseblunt');
 
-levels = new Array();
-levels.push('pavement', new Array('block', 'ledge'));
-levels.push('street', new Array('ledge', 'ledge'));
+pavement = new Array();
+pavement.push(new Array('Block', 'block', 500));
+pavement.push(new Array('Ledge', 'box', 1000));
+pavement.push(new Array('Ledge', 'box', 1350));
 
-obstacles = new Array();
+street = new Array();
+street.push(new Array('Ledge', 'barrier', 500));
+street.push(new Array('Ledge', 'guard-rail', 1000));
+street.push(new Array('Block', 'cone', 1700));
+
+levels = new Array();
+levels.push(pavement);
+levels.push(street);
 
 advance = false;
 tutorial = new Array();

@@ -49,6 +49,14 @@ h2 {font-size:14pt;}
 .txtGreen {color:#3f3;}
 .txtBlue {color:#00f;}
 
+#debug {
+	width:360px;
+	min-height:50px;
+	background-color:#333333;
+	color:#0f0 !important;
+	font:10pt Courier New;
+}
+
 #game {
 	width:360px;
 	height:525px;
@@ -61,10 +69,13 @@ h2 {font-size:14pt;}
 	overflow:hidden;
 }
 
-#obstacles {
+#hud {
+	top:0;
+	left:0;
 	width:360px;
-	height:525px;
 }
+
+#loading {margin-top:225px;}
 
 #bg {
 	width:360px;
@@ -78,18 +89,6 @@ h2 {font-size:14pt;}
 	height:140px;
 }
 
-.matt {
-	width:100px;
-	height:140px;
-	background:url('../img/matt.png') no-repeat;
-}
-
-.laura {
-	width:100px;
-	height:140px;
-	background:url('../img/laura.png') no-repeat;
-}
-
 #board {
 	top:260px;
 	left:130px;
@@ -98,10 +97,9 @@ h2 {font-size:14pt;}
 	background:url('../img/board.png') no-repeat;
 }
 
-#hud {
-	top:0;
-	left:0;
+#obstacles {
 	width:360px;
+	height:525px;
 }
 
 .buttons {
@@ -117,6 +115,20 @@ h2 {font-size:14pt;}
 	cursor:pointer;
 }
 
+/* CHARACTERS */
+.matt {
+	width:100px;
+	height:140px;
+	background:url('../img/characters/matt.png') no-repeat;
+}
+
+.laura {
+	width:100px;
+	height:140px;
+	background:url('../img/characters/laura.png') no-repeat;
+}
+
+/* LEVEL BGs */
 .pavement {
 	background:url('../img/levels/pavement.png') no-repeat;
 	width:360px;
@@ -129,26 +141,45 @@ h2 {font-size:14pt;}
 	height:530px;
 }
 
+/* OBSTACLES */
 .block {
-	top:380px;
-	left:360px;
 	width:20px;
 	height:20px;
 	background-color:#333;
 }
 
-.ledge {
-	top:360px;
-	left:360px;
+.box {
 	width:300px;
 	height:40px;
-	background:url('../img/obstacles/ledge.png') no-repeat;
+	background:url('../img/obstacles/box.png') no-repeat;
 }
 
-#debug {
-	width:360px;
-	min-height:50px;
-	background-color:#333333;
-	color:#0f0 !important;
-	font:10pt Courier New;
+.ramp {
+	width:120px;
+	height:40px;
+	background:url('../img/obstacles/ramp.png') no-repeat;
+}
+
+.rail {
+	width:300px;
+	height:40px;
+	background:url('../img/obstacles/rail.png') no-repeat;
+}
+
+.barrier {
+	width:250px;
+	height:60px;
+	background:url('../img/obstacles/barrier.png') no-repeat;
+}
+
+.guard-rail {
+	width:630px;
+	height:40px;
+	background:url('../img/obstacles/guard-rail.png') no-repeat;
+}
+
+.cone {
+	width:50px;
+	height:70px;
+	background:url('../img/obstacles/cone.png') no-repeat;
 }
