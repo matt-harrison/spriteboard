@@ -154,6 +154,7 @@ h2 {font-size:14pt;}
 	background:url('../img/obstacles/box.png') no-repeat;
 }
 
+<<<<<<< HEAD
 .ramp {
 	width:120px;
 	height:40px;
@@ -182,4 +183,30 @@ h2 {font-size:14pt;}
 	width:50px;
 	height:70px;
 	background:url('../img/obstacles/cone.png') no-repeat;
+=======
+.barrier {
+	width:200px;
+	height:50px;
+	background-color:#03F;
+}
+
+.guard-rail {
+	width:600px;
+	height:30px;
+	background-color:#ccc;
+}
+
+.cone {
+	width:20px;
+	height:60px;
+	background-color:#F60;
+}
+
+#debug {
+	width:360px;
+	min-height:50px;
+	background-color:#333333;
+	color:#0f0 !important;
+	font:10pt Courier New;
+>>>>>>> d8871959cfeeff84f0897c238e60395b5a1bfb4c
 }
