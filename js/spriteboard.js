@@ -22,6 +22,8 @@ $(function(){
 	gameOver = true;
 	obstacle = '';
 	mode = 'menu';
+	level = 0;
+	level = levels[level];
 	
 	//CHECK FOR DEBUG MODE
 	if(String(location.search).indexOf('debug') !== - 1){
@@ -208,45 +210,46 @@ $(function(){
 		}
 	}
 	
-	block1 = {
-		id:'block1',
-		selector:$('#block1'),
-		width:20,
-		height:20,
-		x:360,
-		y:380,
-		defaultX:500,
-		init:function(){
-			this.x = this.defaultX;
-			this.y = ground - this.height;
-			this.selector.css('left', this.x).css('top', this.y);
-		},
-		update:function(){
+	var Block = function(type, width, height, defaultX){
+		this.id = obstacles.length;
+		this.type = type;
+		this.width = width;
+		this.height = height;
+		this.x = defaultX;
+		this.y = ground - this.height;
+		this.defaultX = defaultX;
+		
+		$('#obstacles').append('<div id="' + this.type + this.id + '" class="' + this.type + ' abs"/>');
+		this.selector = $('#' + this.type + this.id);
+		this.selector.css('left', this.x).css('top', this.y).css('width', this.width).css('height', this.height);
+		obstacles.push(this);
+			
+		this.update = function(){
 			if(player.status != 'crash' && checkStumblePosition(this)){
 				bail();
 			}
 			this.x -= speed;
-		},
-		draw:function(){
+		};
+		this.draw = function(){
 			this.selector.css('left', this.x);
-		}
-	}
-	obstacles.push(block1);
+		};
+	};
 	
-	ledge1 = {
-		id:'ledge1',
-		selector:$('#ledge1'),
-		width:300,
-		height:40,
-		x:360,
-		y:360,
-		defaultX:1000,
-		init:function(){
-			this.x = this.defaultX;
-			this.y = ground - this.height;
-			this.selector.css('left', this.x).css('top', this.y);
-		},
-		update:function(){
+	var Ledge = function(type, width, height, defaultX){
+		this.id = obstacles.length;
+		this.type = type;
+		this.width = width;
+		this.height = height;
+		this.x = defaultX;
+		this.y = ground - this.height;
+		this.defaultX = defaultX;
+		
+		$('#obstacles').append('<div id="' + this.type + this.id + '" class="' + this.type + ' abs"/>');
+		this.selector = $('#' + this.type + this.id);
+		this.selector.css('left', this.x).css('top', this.y).css('width', this.width).css('height', this.height);
+		obstacles.push(this);
+		
+		this.update = function(){
 			if(checkGrindPosition(this)){
 				obstacle = this;
 			}else {
@@ -255,12 +258,11 @@ $(function(){
 				}
 			}
 			this.x -= speed;
-		},
-		draw:function(){
+		};
+		this.draw = function(){
 			this.selector.css('left', this.x);
-		}
-	}
-	obstacles.push(ledge1);
+		};
+	};
 	
 	bg = {
 		selector1:$('#bg1'),
@@ -350,12 +352,14 @@ $(function(){
 	//LEVEL SELECT
 	$('#btnLevelPavement').bind('mouseup touchend', function(){
 		bg.level = 'pavement';
+		level = levels[0];
 		bg.width = 360;
 		bg.x = 0;
 		bg.init();
 	});
 	$('#btnLevelStreet').bind('mouseup touchend', function(){
 		bg.level = 'street';
+		level = levels[1];
 		bg.width = 1800;
 		bg.x = 0;
 		bg.init();
@@ -473,7 +477,7 @@ $(function(){
 	function checkGrindPosition(obj){
 		var collision = false;
 		playerLeftEdge = player.x + pixelScale*2;
-		boxRightEdge = block1.x + block1.width;
+		boxRightEdge = obj.x + obj.width;
 		if(player.x + player.width > obj.x && player.x + pixelScale*2 < obj.x + obj.width){
 			collision = true;
 		}
@@ -697,9 +701,24 @@ $(function(){
 			player.switchStance = false;
 		}
 		setFrame(player);
-		for(var i=0; i<obstacles.length; i++){
-			obstacles[i].init();
+		
+		//Remove obstacles
+		if(obstacles.length > 0){
+			for(var i=0; i<obstacles.length; i++){
+				obstacles[i].selector.remove();
+			}
+			obstacles.splice(0);
 		}
+		
+		//Re-distribute obstacles
+		for(var i=0; i<level.length; i++){
+			if(level[i][0] == 'Block'){
+				var temp = new Block(level[i][1], level[i][2], level[i][3], level[i][4]);
+			} else if(level[i][0] == 'Ledge'){
+				var temp = new Ledge(level[i][1], level[i][2], level[i][3], level[i][4]);
+			}
+		}
+		
 		bg.init();
 		$('#hud').html('');
 	}
@@ -807,7 +826,7 @@ $(function(){
 		}
 	}
 	
-	function swipeEnd(endX, endY){	
+	function swipeEnd(endX, endY){
 		var shortSwipe = 30;
 		var longSwipe = 200;
 		

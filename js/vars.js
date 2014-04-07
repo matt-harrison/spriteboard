@@ -1,3 +1,5 @@
+obstacles = new Array();
+
 tricks = new Array();
 tricks.push('none');
 tricks.push('Ollie');
@@ -34,11 +36,18 @@ grinds.push('Lipslide');
 grinds.push('Bluntslide');
 grinds.push('Noseblunt');
 
-levels = new Array();
-levels.push('pavement', new Array('block', 'ledge'));
-levels.push('street', new Array('ledge', 'ledge'));
+pavement = new Array();
+pavement.push(new Array('Block', 'block', 20, 20, 500));
+pavement.push(new Array('Ledge', 'box', 300, 40, 1000));
 
-obstacles = new Array();
+street = new Array();
+street.push(new Array('Ledge', 'barrier', 200, 50, 500));
+street.push(new Array('Ledge', 'guard-rail', 600, 30, 1000));
+street.push(new Array('Block', 'cone', 20, 60, 1650));
+
+levels = new Array();
+levels.push(pavement);
+levels.push(street);
 
 advance = false;
 tutorial = new Array();

@@ -130,19 +130,33 @@ h2 {font-size:14pt;}
 }
 
 .block {
-	top:380px;
-	left:360px;
 	width:20px;
 	height:20px;
 	background-color:#333;
 }
 
-.ledge {
-	top:360px;
-	left:360px;
+.box {
 	width:300px;
 	height:40px;
 	background:url('../img/obstacles/ledge.png') no-repeat;
+}
+
+.barrier {
+	width:200px;
+	height:50px;
+	background-color:#03F;
+}
+
+.guard-rail {
+	width:600px;
+	height:30px;
+	background-color:#ccc;
+}
+
+.cone {
+	width:20px;
+	height:60px;
+	background-color:#F60;
 }
 
 #debug {
