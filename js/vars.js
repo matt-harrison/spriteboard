@@ -1,74 +1,196 @@
-obstacles = new Array();
+obstacles = [];
 
-sprites = new Array();
+sprites = [];
 sprites.push('img/characters/matt.png');
 sprites.push('img/characters/laura.png');
+sprites.push('img/characters/marty.png');
+sprites.push('img/characters/bart.png');
 
 sprites.push('img/btnBG.png');
-sprites.push('img/board.png');
+sprites.push('img/boards/red.png');
+sprites.push('img/boards/blue.png');
+sprites.push('img/boards/green.png');
+sprites.push('img/boards/hoverboard.png');
 
 sprites.push('img/levels/pavement.png');
+sprites.push('img/levels/sidewalk.png');
 sprites.push('img/levels/street.png');
 
 sprites.push('img/obstacles/barrier.png');
 sprites.push('img/obstacles/box.png');
 sprites.push('img/obstacles/cone.png');
+sprites.push('img/obstacles/crate.png');
 sprites.push('img/obstacles/guard-rail.png');
 sprites.push('img/obstacles/rail.png');
 sprites.push('img/obstacles/ramp.png');
+sprites.push('img/obstacles/stage.png');
 
-tricks = new Array();
-tricks.push('none');
-tricks.push('Ollie');
-tricks.push('Frontside 180');
-tricks.push('Backside 180');
-tricks.push('Kickflip');
-tricks.push('Heelflip');
-tricks.push('Backside Shuvit');
-tricks.push('Frontside Shuvit');
-tricks.push('Varialflip');
-tricks.push('Varial Heelflip');
-tricks.push('Hardflip');
-tricks.push('Inward Heelflip');
-tricks.push('360 flip');
-tricks.push('Laserflip');
-tricks.push('Pedal');
-tricks.push('Pedal');
-tricks.push('Powerslide');
-tricks.push('Powerslide');
-tricks.push('Bail');
+tricks = [];
+tricks.push('none');				//0
+tricks.push('Ollie');				//1
+tricks.push('Frontside 180');		//2
+tricks.push('Backside 180');		//3
+tricks.push('Kickflip');			//4
+tricks.push('Heelflip');			//5
+tricks.push('Backside Shuvit');		//6
+tricks.push('Frontside Shuvit');	//7
+tricks.push('Varialflip');			//8
+tricks.push('Varial Heelflip');		//9
+tricks.push('Hardflip');			//10
+tricks.push('Inward Heelflip');		//11
+tricks.push('360 flip');			//12
+tricks.push('Laserflip');			//13
+tricks.push('Pedal');				//14
+tricks.push('Pedal');				//15
+tricks.push('Powerslide');			//16
+tricks.push('Powerslide');			//17
+tricks.push('Bail');				//18
 
-grinds = new Array();
-grinds.push('none');
-grinds.push('50-50 Grind');
-grinds.push('5-0 Grind');
-grinds.push('Nosegrind');
-grinds.push('Smith Grind');
-grinds.push('Feeble Grind');
-grinds.push('Crooked');
-grinds.push('Noseslide');
-grinds.push('Tailslide');
-grinds.push('Boardslide');
-grinds.push('Lipslide');
-grinds.push('Bluntslide');
-grinds.push('Noseblunt');
+grinds = [];
+grinds.push('none');				//0
+grinds.push('50-50 Grind');			//1
+grinds.push('5-0 Grind');			//2
+grinds.push('Nosegrind');			//3
+grinds.push('Smith Grind');			//4
+grinds.push('Feeble Grind');		//5
+grinds.push('Crooked');				//6
+grinds.push('Noseslide');			//7
+grinds.push('Tailslide');			//8
+grinds.push('Boardslide');			//9
+grinds.push('Lipslide');			//10
+grinds.push('Bluntslide');			//11
+grinds.push('Noseblunt');			//12
 
-pavement = new Array();
-pavement.push(new Array('Block', 'block', 500));
-pavement.push(new Array('Ledge', 'box', 1000));
-pavement.push(new Array('Ledge', 'box', 1350));
+//Backgrounds
+pavement = {
+	'img': 'pavement',
+	'width': 360
+};
 
-street = new Array();
-street.push(new Array('Ledge', 'barrier', 500));
-street.push(new Array('Ledge', 'guard-rail', 1000));
-street.push(new Array('Block', 'cone', 1700));
+sidewalk = {
+	'img': 'sidewalk',
+	'width': 360
+};
 
-levels = new Array();
-levels.push(pavement);
-levels.push(street);
+street = {
+	'img': 'street',
+	'width': 1800
+};
+
+//Obstacles
+barrier = {
+	'name': 'barrier',
+	'class': 'Ledge',
+	'width': 250,
+	'height': 60
+}
+
+box = {
+	'name': 'box',
+	'class': 'Ledge',
+	'width': 300,
+	'height': 40
+};
+
+cone = {
+	'name': 'cone',
+	'class': 'Block',
+	'width': 50,
+	'height': 70
+};
+
+crate = {
+	'name': 'crate',
+	'class': 'Block',
+	'width': 60,
+	'height': 60
+};
+
+guardRail = {
+	'name': 'guard-rail',
+	'class': 'Ledge',
+	'width': 630,
+	'height': 40
+};
+
+stage40 = {
+	'name': 'stage40',
+	'class': 'Platform',
+	'width': 300,
+	'height': 40
+};
+
+stage80 = {
+	'name': 'stage80',
+	'class': 'Platform',
+	'width': 300,
+	'height': 80
+};
+
+stage120 = {
+	'name': 'stage120',
+	'class': 'Platform',
+	'width': 300,
+	'height': 120
+};
+
+//Levels
+parkingLot = {
+	'bg': pavement,
+	'obstacles': [
+		{
+			'type': crate,
+			'xPosition': 100
+		},
+		{
+			'type': box,
+			'xPosition': 460
+		},
+		{
+			'type': box,
+			'xPosition': 810
+		}
+	]
+};
+
+gaps = {
+	'bg': sidewalk,
+	'obstacles': [
+		{
+			'type': stage40,
+			'xPosition': 0
+		},
+		{
+			'type': stage80,
+			'xPosition': 475
+		},
+		{
+			'type': stage120,
+			'xPosition': 950
+		}
+	]
+};
+
+interstate = {
+	'bg': street,
+	'obstacles': [
+		{
+			'type': barrier,
+			'xPosition': 140
+		},
+		{
+			'type': guardRail,
+			'xPosition': 640
+		},
+		{
+			'type': cone,
+			'xPosition': 1340
+		}
+	]
+};
 
 advance = false;
-tutorial = new Array();
+tutorial = [];
 //tutorial[x] = [message, swipe, trick, status];
 
 tutorial.push(['Swipe <span class="txtBlue">LEFT</span> to <span class="txtWhite">Pedal</span>.', 'W', 'Pedal', 'ride']);

@@ -1,185 +1,239 @@
 @charset 'utf-8';
 
 @font-face {
-	font-family:pressStartK;
-	src:url('/games/fonts/press-start-k.woff') format('woff'), url('/games/fonts/press-start-k.ttf') format('truetype');
+	font-family: pressStartK;
+	src: url('/games/fonts/press-start-k.woff') format('woff'), url('/games/fonts/press-start-k.ttf') format('truetype');
 }
 
 body, h1, h2, p {
-	user-select:none;
-	-moz-user-select:none;
-	-webkit-user-select:none;
-	margin:0;
-	margin:0;
-	border:0;
-	padding:0;
-	font-family:pressStartK;
-	line-height:1.5;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	margin: 0;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font-family: pressStartK;
+	line-height: 1.5;
 }
 
-h1 {font-size:18pt;}
-h2 {font-size:14pt;}
+h1 {font-size: 18pt;}
+h2 {font-size: 14pt;}
 
-.hide {display:none;}
-.dBlock {display:block;}
-.abs {position:absolute;}
-.rel {position:relative;}
+.hide {display: none;}
+.dBlock {display: block;}
+.abs {position: absolute;}
+.rel {position: relative;}
 
-.balance {margin-right:auto; margin-left:auto;}
-.m10 {margin:10px;}
-.mb5 {margin-bottom:5px;}
-.mt10 {margin-top:10px;}
-.mb10 {margin-bottom:10px;}
+.mAuto {margin-right: auto; margin-left: auto;}
+.m10 {margin: 10px;}
+.mb5 {margin-bottom: 5px;}
+.mt10 {margin-top: 10px;}
+.mb10 {margin-bottom: 10px;}
 
-.bdrBlack {border:1px solid #000;}
+.bdrBlack {border: 1px solid #000;}
 .bdrBox {
-	box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-.p5 {padding:5px;}
+.p5 {padding: 5px;}
 
-.w360 {width:360px;}
+.w360 {width: 360px;}
 
-.txtC {text-align:center;}
-.txtR {text-align:right;}
-.txtWhite {color:#fff;}
-.txtGray {color:#555;}
-.txtGreen {color:#3f3;}
-.txtBlue {color:#00f;}
+.txtC {text-align: center;}
+.txtR {text-align: right;}
+.txtWhite {color: #fff;}
+.txtGray {color: #555;}
+.txtGreen {color: #3f3;}
+.txtBlue {color: #00f;}
 
 #debug {
-	width:360px;
-	min-height:50px;
-	background-color:#333333;
-	color:#0f0 !important;
-	font:10pt Courier New;
+	width: 360px;
+	height: 50px;
+	max-height: 50px;
+	overflow: hidden;
+	background-color: #333333;
+	color: #0f0 !important;
+	font: 10pt Courier New;
 }
 
 #game {
-	width:360px;
-	height:525px;
+	width: 360px;
+	height: 525px;
 }
 
 #stage {
-	width:360px;
-	height:525px;
-	background-color:#97b9e1;
-	overflow:hidden;
+	width: 360px;
+	height: 525px;
+	background-color: #97b9e1;
+	overflow: hidden;
 }
 
 #hud {
-	top:0;
-	left:0;
-	width:360px;
+	top: 0;
+	left: 0;
+	width: 360px;
 }
 
-#loading {margin-top:225px;}
+#loading {margin-top: 225px;}
 
 #bg {
-	width:360px;
-	height:525px;
+	width: 360px;
+	height: 525px;
 }
 
 #player {
-	top:260px;
-	left:130px;
-	width:100px;
-	height:140px;
+	top: 260px;
+	left: 130px;
+	width: 100px;
+	height: 140px;
 }
 
 #board {
-	top:260px;
-	left:130px;
-	width:100px;
-	height:140px;
-	background:url('../img/board.png') no-repeat;
+	top: 260px;
+	left: 130px;
+	width: 100px;
+	height: 140px;
 }
 
 #obstacles {
-	width:360px;
-	height:525px;
+	width: 360px;
+	height: 525px;
 }
 
 .buttons {
-	top:25px;
-	left:105px;
+	top: 25px;
+	left: 105px;
 }
 
 .button {
-	background:url('../img/btnBG.png') no-repeat;
-	width:300px;
-	height:50px;
-	line-height:50px;
-	cursor:pointer;
+	background: url('/games/spriteboard/img/btnBG.png');
+	width: 300px;
+	height: 50px;
+	line-height: 50px;
+	cursor: pointer;
 }
 
 /* CHARACTERS */
 .matt {
-	width:100px;
-	height:140px;
-	background:url('../img/characters/matt.png') no-repeat;
+	background: url('/games/spriteboard/img/characters/matt.png');
 }
 
 .laura {
-	width:100px;
-	height:140px;
-	background:url('../img/characters/laura.png') no-repeat;
+	background: url('/games/spriteboard/img/characters/laura.png');
+}
+
+.marty {
+	background: url('/games/spriteboard/img/characters/marty.png');
+}
+
+.bart {
+	background: url('/games/spriteboard/img/characters/bart.png');
+}
+
+/* BOARDS */
+.red {
+	background: url('/games/spriteboard/img/boards/red.png');
+}
+
+.blue {
+	background: url('/games/spriteboard/img/boards/blue.png');
+}
+
+.green {
+	background: url('/games/spriteboard/img/boards/green.png');
+}
+
+.hoverboard {
+	background: url('/games/spriteboard/img/boards/hoverboard.png');
 }
 
 /* LEVEL BGs */
 .pavement {
-	background:url('../img/levels/pavement.png') no-repeat;
-	width:360px;
-	height:530px;
+	background: url('/games/spriteboard/img/levels/pavement.png');
+	width: 360px;
+	height: 530px;
+}
+
+.sidewalk {
+	background: url('/games/spriteboard/img/levels/sidewalk.png');
+	width: 360px;
+	height: 530px;
 }
 
 .street {
-	background:url('../img/levels/street.png') no-repeat;
-	width:1800px;
-	height:530px;
+	background: url('/games/spriteboard/img/levels/street.png');
+	width: 1800px;
+	height: 530px;
 }
 
 /* OBSTACLES */
-.block {
-	width:20px;
-	height:20px;
-	background-color:#333;
+.barrier {
+	width: 250px;
+	height: 60px;
+	background: url('/games/spriteboard/img/obstacles/barrier.png');
 }
 
 .box {
-	width:300px;
-	height:40px;
-	background:url('../img/obstacles/box.png') no-repeat;
-}
-
-.ramp {
-	width:120px;
-	height:40px;
-	background:url('../img/obstacles/ramp.png') no-repeat;
-}
-
-.rail {
-	width:300px;
-	height:40px;
-	background:url('../img/obstacles/rail.png') no-repeat;
-}
-
-.barrier {
-	width:250px;
-	height:60px;
-	background:url('../img/obstacles/barrier.png') no-repeat;
-}
-
-.guard-rail {
-	width:630px;
-	height:40px;
-	background:url('../img/obstacles/guard-rail.png') no-repeat;
+	width: 300px;
+	height: 40px;
+	background: url('/games/spriteboard/img/obstacles/box.png');
 }
 
 .cone {
-	width:50px;
-	height:70px;
-	background:url('../img/obstacles/cone.png') no-repeat;
+	width: 50px;
+	height: 70px;
+	background: url('/games/spriteboard/img/obstacles/cone.png');
+}
+
+.crate {
+	width: 60px;
+	height: 60px;
+	background: url('/games/spriteboard/img/obstacles/crate.png');
+}
+
+.guard-rail {
+	width: 630px;
+	height: 40px;
+	background: url('/games/spriteboard/img/obstacles/guard-rail.png');
+}
+
+.rail {
+	width: 300px;
+	height: 40px;
+	background: url('/games/spriteboard/img/obstacles/rail.png');
+}
+
+.ramp {
+	width: 120px;
+	height: 40px;
+	background: url('/games/spriteboard/img/obstacles/ramp.png');
+}
+
+.stage40 {
+	width: 400px;
+	height: 40px;
+	background: url('/games/spriteboard/img/obstacles/stage.png');
+}
+
+.stage80 {
+	width: 400px;
+	height: 80px;
+	background: url('/games/spriteboard/img/obstacles/stage.png');
+}
+
+.stage120 {
+	width: 400px;
+	height: 120px;
+	background: url('/games/spriteboard/img/obstacles/stage.png');
+}
+
+.nollie {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
 }

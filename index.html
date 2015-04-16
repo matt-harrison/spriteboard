@@ -10,7 +10,7 @@
 		<meta name="viewport" content="width=380, scale=1, user-scalable=0"/>
 	</head>
 	<body class="m10">
-		<div id="game" class="balance mb10 bdrBlack rel">
+		<div id="game" class="mAuto mb10 bdrBlack rel">
 			<div id="stage" class="abs hide">
 				<div id="bg" class="abs">
 					<div id="bg1" class="pavement abs"></div>
@@ -18,7 +18,7 @@
 				</div>
 				<div id="obstacles" class="abs"></div>
 				<div id="hud" class="abs bdrBox p5 w360"></div>
-				<div id="board" class="abs"></div>
+				<div id="board" class="red abs"></div>
 				<div id="player" class="matt abs"></div>
 			</div>
 			<div id="loading" class="abs bdrBox p5 w360 txtC">
@@ -28,38 +28,41 @@
 			<div id="title" class="abs bdrBox p5 w360 txtC hide">
 				<h1 class="mt10">SPRITEBOARD</h1>
 				<h2 class="mb10">by matt!</h2>
-				<div class="balance buttons">
-					<div type="button" id="btnPlay" class="balance mb10 txtC button">Play</div>
-					<div type="button" id="btnOptions" class="balance mb10 txtC button">Options</div>
-					<div type="button" id="btnTutorial" class="balance mb10 txtC button">Tutorial</div>
+				<div class="mAuto buttons">
+					<div type="button" id="btnPlay" class="mAuto mb10 txtC button">Play</div>
+					<div type="button" id="btnOptions" class="mAuto mb10 txtC button">Options</div>
+					<div type="button" id="btnTutorial" class="mAuto mb10 txtC button">Tutorial</div>
 				</div>
 			</div>
 			<div id="options" class="abs bdrBox p5 w360 txtC hide">
 				<h1 class="mt10">OPTIONS</h1>
-				<div class="balance buttons">
-					<div type="button" id="btnCharacterSelect" class="balance mb10 txtC button">Character Select</div>
-					<div type="button" id="btnLevelSelect" class="balance mb10 txtC button">Level Select</div>
-					<div type="button" id="btnStance" class="balance mb10 txtC button">Change Stance</div>
-					<div type="button" id="btnMainMenu" class="balance mb10 txtC button">Main Menu</div>
+				<div class="mAuto buttons">
+					<div type="button" id="btnCharacterSelect" class="mAuto mb10 txtC button">Character Select</div>
+					<div type="button" id="btnLevelSelect" class="mAuto mb10 txtC button">Level Select</div>
+					<div type="button" id="btnStance" class="mAuto mb10 txtC button">Change Stance</div>
+					<div type="button" id="btnMainMenu" class="mAuto mb10 txtC button">Main Menu</div>
 				</div>
 			</div>
 			<div id="characterSelect" class="abs bdrBox p5 w360 txtC hide">
 				<h1 class="mt10">CHARACTER SELECT</h1>
-				<div class="balance buttons">
-					<div type="button" id="btnCharacterMatt" class="balance mb10 txtC button">Matt</div>
-					<div type="button" id="btnCharacterLaura" class="balance mb10 txtC button">Laura</div>
-					<div type="button" id="btnBackToOptions" class="balance mb10 txtC button">Back to Options</div>
+				<div class="mAuto buttons">
+					<div type="button" id="btnCharacterMatt" class="mAuto mb10 txtC button">Matt</div>
+					<div type="button" id="btnCharacterLaura" class="mAuto mb10 txtC button">Laura</div>
+					<div type="button" id="btnCharacterMarty" class="mAuto mb10 txtC button">Marty</div>
+					<div type="button" id="btnCharacterBart" class="mAuto mb10 txtC button">Bart</div>
+					<div type="button" id="btnBackToOptions" class="mAuto mb10 txtC button">Back to Options</div>
 				</div>
 			</div>
 			<div id="levelSelect" class="abs bdrBox p5 w360 txtC hide">
 				<h1 class="mt10">LEVEL SELECT</h1>
-				<div class="balance buttons">
-					<div type="button" id="btnLevelPavement" class="balance mb10 txtC button">Pavement</div>
-					<div type="button" id="btnLevelStreet" class="balance mb10 txtC button">Street</div>
-					<div type="button" id="btnBackToOptions" class="balance mb10 txtC button">Back to Options</div>
+				<div class="mAuto buttons">
+					<div type="button" id="btnParkingLot" data-level="parkingLot" class="mAuto mb10 txtC button btnLevel">Parking Lot</div>
+					<div type="button" id="btnGaps" data-level="gaps" class="mAuto mb10 txtC button btnLevel">Gaps</div>
+					<div type="button" id="btnInterstate" data-level="interstate" class="mAuto mb10 txtC button btnLevel">Interstate</div>
+					<div type="button" id="btnBackToOptions" class="mAuto mb10 txtC button">Back to Options</div>
 				</div>
 			</div>
 		</div>
-		<div id="debug" class="balance bdrBox bdrBlack p5 hide"></div>
+		<div id="debug" class="mAuto bdrBox bdrBlack p5 hide"></div>
 	</body>
 </html>
