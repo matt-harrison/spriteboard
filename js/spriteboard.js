@@ -769,7 +769,7 @@ $(function() {
 		id: 'player', 
 		selector: $('#player'),
 		character: 'matt', 
-		width: 100, 
+		width: 120, 
 		height: 140, 
 		x: 130, 
 		y: 260, 
