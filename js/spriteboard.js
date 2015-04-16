@@ -1,12 +1,12 @@
 /*
 TODO: 
+- long swipe right to switch to nollie/fakie from ground (revert on push)
+- account for backward spins on nollie
+- account for "half-cab" terminology in HUD where applicable
 - manuals over platforms?
-- switch to nollie mode on nosegrind/noseslide/noseblunt/crooked
-- nollie/fakie from ground (revert on push?) 
+- fliptricks with body varials out of grinds? (long swipe to spin + flip without windup? would override 360 flip and laserflip)
 - ramps?
 - 360s?
-- fliptricks with body varials out of grinds?
-- adapt sprites to be semetrical for smooth switching to nollie
 */
 $(function() {
 	function advanceTutorial() {
