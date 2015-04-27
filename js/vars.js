@@ -26,40 +26,40 @@ sprites.push('img/obstacles/ramp.png');
 sprites.push('img/obstacles/stage.png');
 
 tricks = [];
-tricks.push('none');				//0
-tricks.push('Ollie');				//1
-tricks.push('Frontside 180');		//2
-tricks.push('Backside 180');		//3
-tricks.push('Kickflip');			//4
-tricks.push('Heelflip');			//5
-tricks.push('Backside Shuvit');		//6
-tricks.push('Frontside Shuvit');	//7
-tricks.push('Varialflip');			//8
-tricks.push('Varial Heelflip');		//9
-tricks.push('Hardflip');			//10
-tricks.push('Inward Heelflip');		//11
-tricks.push('360 flip');			//12
-tricks.push('Laserflip');			//13
-tricks.push('Pedal');				//14
-tricks.push('Pedal');				//15
-tricks.push('Powerslide');			//16
-tricks.push('Powerslide');			//17
-tricks.push('Bail');				//18
+tricks['none'] = 				0;
+tricks['Ollie'] = 				1;
+tricks['Frontside 180'] = 		2;
+tricks['Backside 180'] = 		3;
+tricks['Kickflip'] =			4;
+tricks['Heelflip'] = 			5;
+tricks['Backside Shuvit'] = 	6;
+tricks['Frontside Shuvit'] = 	7;
+tricks['Varialflip'] = 			8;
+tricks['Varial Heelflip'] = 	9;
+tricks['Hardflip'] = 			10;
+tricks['Inward Heelflip'] = 	11;
+tricks['360 flip'] = 			12;
+tricks['Laserflip'] = 			13;
+tricks['Pedal'] = 				14;
+tricks['Pedal'] = 				15;
+tricks['Powerslide'] = 			16;
+tricks['Powerslide'] = 			17;
+tricks['Bail'] = 				18;
 
 grinds = [];
-grinds.push('none');				//0
-grinds.push('50-50 Grind');			//1
-grinds.push('5-0 Grind');			//2
-grinds.push('Nosegrind');			//3
-grinds.push('Smith Grind');			//4
-grinds.push('Feeble Grind');		//5
-grinds.push('Crooked');				//6
-grinds.push('Noseslide');			//7
-grinds.push('Tailslide');			//8
-grinds.push('Boardslide');			//9
-grinds.push('Lipslide');			//10
-grinds.push('Bluntslide');			//11
-grinds.push('Noseblunt');			//12
+grinds['none'] = 				0;
+grinds['50-50 Grind'] = 		1;
+grinds['5-0 Grind'] = 			2;
+grinds['Nosegrind'] = 			3;
+grinds['Smith Grind'] = 		4;
+grinds['Feeble Grind'] = 		5;
+grinds['Crooked'] = 			6;
+grinds['Noseslide'] = 			7;
+grinds['Tailslide'] = 			8;
+grinds['Boardslide'] = 			9;
+grinds['Lipslide'] = 			10;
+grinds['Bluntslide'] = 			11;
+grinds['Noseblunt'] = 			12;
 
 //Backgrounds
 pavement = {

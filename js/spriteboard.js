@@ -1,8 +1,5 @@
 /*
 TODO: 
-- long swipe right to switch to nollie/fakie from ground (revert on push)
-- account for backward spins on nollie
-- account for "half-cab" terminology in HUD where applicable
 - manuals over platforms?
 - fliptricks with body varials out of grinds? (long swipe to spin + flip without windup? would override 360 flip and laserflip)
 - ramps?
@@ -46,7 +43,7 @@ $(function() {
 			$('#debug').html(player.status);
 		}
 		timer++;
-		setTimeout(animate, 1000/frameRate);
+		animInt = setTimeout(animate, 1000/frameRate);
 	}
 
 	function bail() {
@@ -56,7 +53,7 @@ $(function() {
 			player.stance = 'regular';
 			player.switchStance = !player.switchStance;
 		}
-		player.trick = 18;
+		player.trick = 'Bail';
 		if (currentObstacle.class == 'Platform') {
 			player.y = currentObstacle.y - player.height;
 		} else {
@@ -96,116 +93,124 @@ $(function() {
 				if (dir == '' || dir == 'NW' || dir == 'N' || dir == 'NE') {
 					gravity = 0 - popStrength;
 					player.status = 'ollie';
-					player.trick = 1;
+					player.trick = 'Ollie';
 					snap = true;
 				} else if (dir == 'E') {
-					player.status = 'powerslide';
+					if (longSwipe) {
+						setNollie(!player.nollie);
+					} else {
+						player.status = 'powerslide';
+					}
 				} else if (dir == 'SE') {
 					player.status = 'crouch';
 					player.spin = 'bs';
-					player.trick = 3;
+					player.trick = 'Backside 180';
 				} else if (dir == 'S') {
 					player.status = 'crouch';
-					player.trick = 1;
+					player.trick = 'Ollie';
 				} else if (dir == 'SW') {
 					player.status = 'crouch';
 					player.spin = 'fs';
-					player.trick = 2;
+					player.trick = 'Frontside 180';
 				} else if (dir == 'W') {
+					setNollie(false);
 					player.status = 'pushing';
+					var speedInc = (longSwipe) ? speedIncrement * 2 : speedIncrement;
 					if (speed === 0) {
-						speed = speedMin;
-					} else if (speed < speedMax) {
-						speed += speedIncrement;
+						speed = speedInc;
+					} else if (speed + speedInc < speedMax) {
+						speed += speedInc;
+					} else {
+						speed = speedMax;
 					}
 				}
 				setFrame(player);
 			} else if (player.status == 'crouch' || player.status == 'grind') {
 				if (player.status == 'grind') {
 					player.snapOut = true;
-					if (player.trick == 3 || player.trick == 6 || player.trick == 7 || player.trick == 12) {
+					if (['Nosegrind', 'Noseslide', 'Noseblunt', 'Crooked'].indexOf(player.trick) != -1) {
 						player.nollie = true;
 					}
 				}
 				player.status = 'trick';
 				if (player.spin == '') {
 					if (dir == 'N') {
-						player.trick = 7;
+						player.trick = 'Frontside Shuvit';
 					} else if (dir == 'NE') {
 						if (longSwipe) {
-							player.trick = 13;
+							player.trick = 'Laserflip';
 						} else {
-							player.trick = 9;
+							player.trick = 'Varial Heelflip';
 						}
 					} else if (dir == 'E') {
 						if (longSwipe) {
 							player.spin = 'fs';
-							player.trick = 2;
-							board.trick = 2;
+							player.trick = 'Frontside 180';
+							board.trick = 'Frontside 180';
 						} else {
-							player.trick = 5;
+							player.trick = 'Heelflip';
 						}
 					} else if (dir == 'SE') {
-						player.trick = 11;
+						player.trick = 'Inward Heelflip';
 					} else if (dir == 'S') {
-						player.trick = 6;
+						player.trick = 'Backside Shuvit';
 					} else if (dir == 'SW') {
-						player.trick = 10;
+						player.trick = 'Hardflip';
 					} else if (dir == 'W') {
 						if (longSwipe) {
 							player.spin = 'bs';
-							player.trick = 3;
-							board.trick = 3;
+							player.trick = 'Backside 180';
+							board.trick = 'Backside 180';
 						} else {
-							player.trick = 4;
+							player.trick = 'Kickflip';
 						}
 					} else if (dir == 'NW') {
 						if (longSwipe) {
-							player.trick = 12;
+							player.trick = '360 flip';
 						} else {
-							player.trick = 8;
+							player.trick = 'Varialflip';
 						}
 					} else {//tap only
 						player.status = 'ollie';
-						player.trick = 1;
+						player.trick = 'Ollie';
 					}
 				} else {
 					//add fliptrick to a spin
 					if (dir == 'N') {
-						board.trick = 7;
+						board.trick = 'Frontside Shuvit';
 					} else if (dir == 'NE') {
 						if (longSwipe) {
-							board.trick = 13;
+							board.trick = 'Laserflip';
 						} else {
-							board.trick = 9;
+							board.trick = 'Varial Heelflip';
 						}
 					} else if (dir == 'E') {
-						board.trick = 5;
+						board.trick = 'Heelflip';
 					} else if (dir == 'SE') {
-						board.trick = 11;
+						board.trick = 'Inward Heelflip';
 					} else if (dir == 'S') {
-						board.trick = 6;
+						board.trick = 'Frontside Shuvit';
 					} else if (dir == 'SW') {
-						board.trick = 10;
+						board.trick = 'Hardflip';
 					} else if (dir == 'W') {
-						board.trick = 4;
+						board.trick = 'Kickflip';
 					} else if (dir == 'NW') {
 						if (longSwipe) {
-							board.trick = 12;
+							board.trick = '360 flip';
 						} else {
-							board.trick = 8;
+							board.trick = 'Varialflip';
 						}
 					} else {//tap only
 						if (player.spin == 'fs') {
-							board.trick = 2;
+							board.trick = 'Frontside 180';
 						} else if (player.spin == 'bs') {
-							board.trick = 3;
+							board.trick = 'Backside 180';
 						}
 					}
 					if (player.spin == 'fs') {
-						player.trick = 2;
+						player.trick = 'Frontside 180';
 					} else if (player.spin == 'bs') {
-						player.trick = 3;
+						player.trick = 'Backside 180';
 					}
 				}
 				gravity = 0 - popStrength;
@@ -213,82 +218,82 @@ $(function() {
 				setFrame(player);
 				setFrame(board);
 			} else if (player.status == 'ollie' || player.status == 'catch') {
-				player.trick = 0;
+				player.trick = 'none';
 				if (currentObstacle == '' || currentObstacle.class == 'Platform') {
 					player.status = 'trick';
 					if (dir == 'N') {
-						player.trick = 7;
+						player.trick = 'Frontside Shuvit';
 					} else if (dir == 'NE') {
 						if (longSwipe) {
-							player.trick = 13;
+							player.trick = 'Laserflip';
 						} else {
-							player.trick = 9;
+							player.trick = 'Varial Heelflip';
 						}
 					} else if (dir == 'E') {
-						player.trick = 5;
+						player.trick = 'Heelflip';
 					} else if (dir == 'SE') {
-						player.trick = 11;
+						player.trick = 'Inward Heelflip';
 					} else if (dir == 'S') {
-						player.trick = 6;
+						player.trick = 'Backside Shuvit';
 					} else if (dir == 'SW') {
-						player.trick = 10;
+						player.trick = 'Hardflip';
 					} else if (dir == 'W') {
-						player.trick = 4;
+						player.trick = 'Kickflip';
 					} else if (dir == 'NW') {
 						if (longSwipe) {
-							player.trick = 12;
+							player.trick = '360 flip';
 						} else {
-							player.trick = 8;
+							player.trick = 'Varialflip';
 						}
 					}
 				} else if (currentObstacle.class == 'Ledge') {//prepare for grind
 					player.status = 'pose';
 					if (dir == 'N') {
 						if (longSwipe) {
-							player.trick = 11;
+							player.trick = 'Bluntslide';
 							grindOffset = pixelScale;
 						} else {
-							player.trick = 7;
+							player.trick = 'Noseslide';
 							grindOffset = pixelScale * 2.5;
 						}
 					} else if (dir == 'NE') {
 						if (longSwipe) {
-							player.trick = 6;
+							player.trick = 'Crooked';
 							grindOffset = pixelScale * 0.5;
 						} else {
-							player.trick = 5;
+							player.trick = 'Feeble Grind';
 							grindOffset = pixelScale;
 						}
 					} else if (dir == 'E') {
-						player.trick = 3;
+						player.trick = 'Nosegrind';
 						grindOffset = pixelScale * 0.5;
 					} else if (dir == 'SE') {
-						player.trick = 4;
+						player.trick = 'Smith Grind';
 						grindOffset = pixelScale * 2;
 					} else if (dir == 'S') {
 						if (longSwipe) {
-							player.trick = 12;
+							player.trick = 'Noseblunt';
 							grindOffset = pixelScale;
 						} else {
-							player.trick = 8;
+							player.trick = 'Tailslide';
 							grindOffset = pixelScale * 2.5;
 						}
 					} else if (dir == 'SW') {
-						player.trick = 10;
+						player.trick = 'Lipslide';
 						grindOffset = pixelScale;
 					} else if (dir == 'W') {
-						player.trick = 2;
+						player.trick = '5-0 Grind';
 						grindOffset = pixelScale * 0.5;
 					} else if (dir == 'NW') {
 						if (longSwipe) {
-							player.trick = 6;
+							player.trick = 'Crooked';
 							grindOffset = pixelScale * 0.5;
 						} else  {
-							player.trick = 9;
+							player.trick = 'Boardslide';
 							grindOffset = pixelScale;
 						}
 					} else if (dir == '') {
-						player.trick = 1;
+						player.trick = '50-50 Grind';
 						grindOffset = pixelScale * 0.5;
 					}
 				}
@@ -338,7 +343,7 @@ $(function() {
 	
 	function resetPlayer() {
 		player.status = 'ride';
-		player.trick = 0;
+		player.trick = 'none';
 		player.spin = '';
 		player.combo = false;
 		player.snapOut = false;
@@ -355,6 +360,7 @@ $(function() {
 			player.switchStance = false;
 		}
 		setFrame(player);
+		setNollie(false);
 		
 		//Remove obstacles
 		if (obstacles.length > 0) {
@@ -384,7 +390,7 @@ $(function() {
 		//TRIGGER ANIMATION
 		if (player.status == 'ride' || player.status == 'land' || player.status == 'crouch' || player.status == 'catch') {
 			row = 0;
-			col = obj.trick;
+			col = tricks[obj.trick];
 			if (player.stance == 'goofy') {
 				col += 5;
 			}
@@ -395,7 +401,7 @@ $(function() {
 				row++;
 			}
 		} else if (player.status == 'pose' || player.status == 'grind') {
-			row = obj.trick;
+			row = grinds[obj.trick];
 			col = 8;
 			if (player.stance == 'goofy') {
 				col++;
@@ -416,7 +422,7 @@ $(function() {
 			waitFrame = true;
 		} else {
 			col = 0;
-			row = obj.trick;
+			row = tricks[obj.trick];
 			if (player.stance == 'goofy') {
 				col += 4;
 			}
@@ -436,7 +442,6 @@ $(function() {
 			} else if (player.status == 'powerslide') {
 				$('#hud').html('<span class="txtWhite">Powerslide</span>');
 			} else if (player.status == 'ollie' || player.status == 'trick') {
-				var trickName = tricks[obj.trick];
 				var modifier = '';
 				if (player.combo || player.snapOut) {
 					$('#hud').append('<br/> <span class="txtGray">+</span> ');
@@ -457,45 +462,53 @@ $(function() {
 				}
 				if (player.spin == '') {
 					if (player.nollie) {
-						if (player.trick == 1) {
+						if (player.trick == 'Ollie') {
 							$('#hud').append(modifier);//No such thing as a "Nollie Ollie"
 						} else {
-							$('#hud').append(modifier + ' ' + trickName);
+							$('#hud').append(modifier + ' ' + obj.trick);
 						}
 					} else {
-						$('#hud').append(modifier + trickName);
+						$('#hud').append(modifier + obj.trick);
 					}
 				} else if (player.spin == 'fs') {
-					if (tricks[board.trick] == 'Hardflip') {
+					if (board.trick == 'Hardflip') {
 						$('#hud').append('Frontside Flip');
-					} else if (tricks[board.trick] == 'Inward Heelflip') {
+					} else if (board.trick == 'Inward Heelflip') {
 						$('#hud').append('Frontside Heelflip');
-					} else if (tricks[board.trick] == '360 flip') {
+					} else if (board.trick == '360 flip') {
 						$('#hud').append('Bigflip');
-					} else if (tricks[board.trick] == 'Laserflip') {
+					} else if (board.trick == 'Laserflip') {
 						$('#hud').append('Big Heelflip');
-					} else if (tricks[board.trick] == 'Frontside 180' || (tricks[board.trick] == 'Frontside Shuvit') && tricks[row] == 'Frontside 180') {
-						$('#hud').append(modifier + 'Frontside 180');
+					} else if (board.trick == 'Frontside 180' || (board.trick == 'Frontside Shuvit') && obj.trick == 'Frontside 180') {
+						if (player.nollie) {
+							$('#hud').append('Frontside Half Cab');
+						} else {
+							$('#hud').append(modifier + 'Frontside 180');
+						}
 					} else {
-						$('#hud').append(tricks[board.trick] + '<br/><span class="txtGray">+</span> <span class="txtGreen">Frontside Body Varial</span>');
+						$('#hud').append(board.trick + '<br/><span class="txtGray">+</span> <span class="txtGreen">Frontside Body Varial</span>');
 					}
 				} else if (player.spin == 'bs') {
-					if (tricks[board.trick] == 'Varialflip') {
+					if (board.trick == 'Varialflip') {
 						$('#hud').append('Backside Flip');
-					} else if (tricks[board.trick] == 'Inward Heelflip') {
+					} else if (board.trick == 'Inward Heelflip') {
 						$('#hud').append('Backside Heelflip');
-					} else if (tricks[board.trick] == '360 flip') {
+					} else if (board.trick == '360 flip') {
 						$('#hud').append('Bigflip');
-					} else if (tricks[board.trick] == 'Laserflip') {
+					} else if (board.trick == 'Laserflip') {
 						$('#hud').append('Big Heelflip');
-					} else if ((tricks[board.trick] == 'Backside 180' || tricks[board.trick] == 'Backside Shuvit') && tricks[row] == 'Backside 180') {
-						$('#hud').append(modifier + 'Backside 180');
+					} else if ((board.trick == 'Backside 180' || board.trick == 'Backside Shuvit') && obj.trick == 'Backside 180') {
+						if (player.nollie) {
+							$('#hud').append('Half Cab');
+						} else {
+							$('#hud').append(modifier + 'Backside 180');
+						}
 					} else {
-						$('#hud').append(tricks[board.trick] + '<br/><span class="txtGray">+</span> <span class="txtGreen">Backside Body Varial</span>');
+						$('#hud').append(board.trick + '<br/><span class="txtGray">+</span> <span class="txtGreen">Backside Body Varial</span>');
 					}
 				}
 			} else if (player.status == 'grind') {
-				var grindName = grinds[obj.trick];
+				var grindName = obj.trick;
 				if (player.combo || player.snapOut) {
 					$('#hud').append('<br/> <span class="txtGray">+</span> ');
 				}
@@ -510,6 +523,7 @@ $(function() {
 
 	function setNollie(isNollie) {
 		if (isNollie) {
+			player.nollie = true;
 			player.selector.addClass('nollie');
 			board.selector.addClass('nollie');
 		} else {
@@ -635,7 +649,6 @@ $(function() {
 	gravityIncrement = 8;
 	speed = 0;
 	speedIncrement = 10;
-	speedMin = 10;
 	speedMax = 50;
 	popStrength = 30;
 	ground = 400;
@@ -749,7 +762,7 @@ $(function() {
 						if (player.status == 'ride' || player.status == 'crouch' || player.status == 'land') {
 							player.status = 'catch';
 							player.spin = '';
-							player.trick = 4;
+							player.trick = 'Kickflip';
 							setFrame(player);
 						} else {
 							bail();
@@ -818,7 +831,7 @@ $(function() {
 					} else {
 						if (this.status == 'trick') {
 							this.status = 'catch';
-							this.trick = 4;
+							this.trick = 'Kickflip';
 							this.combo = true;
 							setFrame(this);
 						}
@@ -836,7 +849,7 @@ $(function() {
 							this.spin = '';
 							setFrame(this);
 						}
-						this.trick = 0;
+						this.trick = 'none';
 					}
 				}
 				if (this.status == 'ollie' || this.status == 'trick' || this.status == 'catch' || this.status == 'pose') {//increment gravity
@@ -870,21 +883,18 @@ $(function() {
 								bail();
 							} else {
 								this.status = 'land';
-								this.trick = 0;
+								this.trick = 'none';
 								setFrame(this);
 							}
 						}
 					}
-				}
-				if (this.nollie && (this.status == 'catch' || this.status == 'land' || this.status == 'pose')) {
-					setNollie(false);
 				}
 				if (this.status == 'pushing') {
 					if (this.spriteX > 0 - (this.width * 5)) {
 						this.spriteX -= this.width;
 					} else {
 						this.status = 'ride';
-						this.trick = 0;
+						this.trick = 'none';
 						setFrame(this);
 					}
 				} else if (this.status == 'powerslide') {
@@ -898,17 +908,17 @@ $(function() {
 							this.stance = 'regular';
 						}
 						this.switchStance = !this.switchStance;
-						this.trick = 0;
+						this.trick = 'none';
 						setFrame(this);
 					}
 					if (this.status == 'ride') {
-						this.trick = 0;
+						this.trick = 'none';
 						setFrame(this);
 					}
 				} else if (this.status == 'grind') {
 					if (currentObstacle == '') {
 						this.status = 'catch';
-						this.trick = 4;
+						this.trick = 'Kickflip';
 						this.combo = true;
 						setFrame(this);
 					}
@@ -924,10 +934,13 @@ $(function() {
 					}
 				} else if (this.status == 'land') {
 					this.status = 'ride';
-					this.trick = 0;
+					this.trick = 'none';
 					this.combo = false;
 					this.snapOut = false;
 					setFrame(this);
+				}
+				if (this.nollie && (this.status == 'catch' || this.status == 'land' || this.status == 'pose')) {
+					setNollie(false);
 				}
 			}
 		}, 
@@ -1084,10 +1097,29 @@ $(function() {
 		$('#levelSelect').addClass('hide');
 		$('#options').removeClass('hide');
 	});
+
+	//
+	$('.button').bind('mouseup touchend', function() {
+		var buttonSet = $(this).data('buttonset');
+		if (buttonSet != undefined) {
+			$('[data-buttonset="' + buttonSet + '"]').removeClass('selected');
+			$(this).addClass('selected');
+		}
+	});
 	
 	//Keyboard listeners
 	$('body').keydown(function(event) {
 		//alert('event: ' + event.which);
+		if (event.which == 13) {//ENTER
+			if (frameRate == 0) {
+				frameRate = 12;
+				animate();
+			} else {
+				frameRate = 0;
+				clearInterval(animInt);
+			}
+			$('#debug').html('framerate: ' + frameRate);
+		}
 		if (event.which == 38) {//UP ARROW
 			frameRate++;
 			$('#debug').html('framerate: ' + frameRate);

@@ -109,11 +109,16 @@ h2 {font-size: 14pt;}
 }
 
 .button {
-	background: url('/games/spriteboard/img/btnBG.png');
+	background: url('/games/spriteboard/img/button.png');
+	background-position: 0 0;
 	width: 300px;
 	height: 50px;
 	line-height: 50px;
 	cursor: pointer;
+}
+
+.button.selected {
+	background-position: 0 50px;
 }
 
 /* CHARACTERS */
