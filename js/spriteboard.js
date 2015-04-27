@@ -90,7 +90,7 @@ $(function() {
 			}
 		} else {
 			if (player.status == 'ride') {
-				if (dir == '' || dir == 'NW' || dir == 'N' || dir == 'NE') {
+				if (['NW', 'N', 'NE'].indexOf(dir) != -1) {
 					gravity = 0 - popStrength;
 					player.status = 'ollie';
 					player.trick = 'Ollie';
@@ -388,7 +388,7 @@ $(function() {
 	
 	function setFrame(obj) {
 		//TRIGGER ANIMATION
-		if (player.status == 'ride' || player.status == 'land' || player.status == 'crouch' || player.status == 'catch') {
+		if (['ride', 'land', 'crouch', 'catch'].indexOf(player.status) != -1) {
 			row = 0;
 			col = tricks[obj.trick];
 			if (player.stance == 'goofy') {
@@ -433,7 +433,7 @@ $(function() {
 		
 		//DISPLAY TRICK NAME
 		if (mode == 'game' && obj == player) {
-			if (player.status == 'crouch' || player.status == 'powerslide' || (player.status == 'ollie' && !player.combo)) {
+			if (['crouch', 'powerslide', 'ollie'].indexOf(player.status) != -1) {
 				clearTimeout(waitInt);
 				$('#hud').html('');
 			}
@@ -759,7 +759,7 @@ $(function() {
 				if (!checkObstaclePosition(this)) {
 					currentObstacle = '';
 					if (playerOn(this)) {
-						if (player.status == 'ride' || player.status == 'crouch' || player.status == 'land') {
+						if (['ride', 'crouch', 'land'].indexOf(player.status) != -1) {
 							player.status = 'catch';
 							player.spin = '';
 							player.trick = 'Kickflip';
@@ -852,7 +852,7 @@ $(function() {
 						this.trick = 'none';
 					}
 				}
-				if (this.status == 'ollie' || this.status == 'trick' || this.status == 'catch' || this.status == 'pose') {//increment gravity
+				if (['ollie', 'trick', 'catch', 'pose'].indexOf(this.status) != -1) {//increment gravity
 					if (snap) {
 						snap = false;
 					} else {
@@ -876,6 +876,7 @@ $(function() {
 					} else {//above ground
 						if (this.y + this.height + gravity < ground) {
 							this.y += gravity;
+							console.log(gravity);
 						} else {
 							gravity = 0;
 							this.y = ground - this.height;
@@ -939,7 +940,7 @@ $(function() {
 					this.snapOut = false;
 					setFrame(this);
 				}
-				if (this.nollie && (this.status == 'catch' || this.status == 'land' || this.status == 'pose')) {
+				if (this.nollie && ['catch', 'land', 'pose'].indexOf(this.status) != -1) {
 					setNollie(false);
 				}
 			}
